@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}RIVIÈRE RV PARK - Book Your Riverfront RV Site{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="{% url 'home' %}" class="text-2xl font-bold text-gray-800">
+                        <span class="text-[#e14d2a]">RIVIÈRE</span> RV PARK
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-[#e14d2a] transition-colors duration-200 font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-[#e14d2a] transition-colors duration-200 font-medium">About</a>
+                    <a href="{% url 'rules' %}" class="text-gray-700 hover:text-[#e14d2a] transition-colors duration-200 font-medium">Rules</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-[#e14d2a] transition-colors duration-200 font-medium">Contact</a>
+                </div>
+                
+                <!-- CTA Button -->
+                <div class="hidden md:block">
+                    <a href="{% url 'search_availability' %}" class="btn-primary">
+                        Book Now
+                    </a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" type="button" class="text-gray-700 hover:text-[#e14d2a] focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="{% url 'home' %}" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#e14d2a] rounded-md">Home</a>
+                <a href="{% url 'about' %}" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#e14d2a] rounded-md">About</a>
+                <a href="{% url 'rules' %}" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#e14d2a] rounded-md">Rules</a>
+                <a href="{% url 'contact' %}" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#e14d2a] rounded-md">Contact</a>
+                <a href="{% url 'search_availability' %}" class="block px-3 py-2 bg-[#e14d2a] text-white rounded-md text-center font-semibold">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        {% for message in messages %}
+        <div class="bg-{{ message.tags }}-100 border border-{{ message.tags }}-400 text-{{ message.tags }}-700 px-4 py-3 rounded-lg mb-4">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- About -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">
+                        <span class="text-[#e14d2a]">RIVIÈRE</span> RV PARK
+                    </h3>
+                    <p class="text-gray-300">
+                        Your riverfront camping destination. Experience nature at its finest with our well-maintained RV sites and full amenities.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'home' %}" class="text-gray-300 hover:text-[#e14d2a] transition-colors">Home</a></li>
+                        <li><a href="{% url 'about' %}" class="text-gray-300 hover:text-[#e14d2a] transition-colors">About</a></li>
+                        <li><a href="{% url 'rules' %}" class="text-gray-300 hover:text-[#e14d2a] transition-colors">Rules</a></li>
+                        <li><a href="{% url 'search_availability' %}" class="text-gray-300 hover:text-[#e14d2a] transition-colors">Book Now</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>Email: info@campland.com</li>
+                        <li>Phone: (555) 123-4567</li>
+                        <li>Location: 123 Nature Trail</li>
+                    </ul>
+                </div>
+                
+                <!-- Hours -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Office Hours</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>Mon - Fri: 8AM - 6PM</li>
+                        <li>Sat - Sun: 9AM - 5PM</li>
+                        <li>Holidays: Closed</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 RIVIÈRE RV PARK. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

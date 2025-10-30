@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+:root {
+    --primary: #e14d2a;
+    --primary-dark: #c43e1d;
+    --primary-light: #f56b42;
+}
+
+@layer components {
+    .btn-primary {
+        @apply bg-[#e14d2a] hover:bg-[#c43e1d] text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg;
+    }
+    
+    .btn-secondary {
+        @apply bg-gray-700 hover:bg-gray-800 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300;
+    }
+    
+    .btn-outline {
+        @apply border-2 border-[#e14d2a] text-[#e14d2a] hover:bg-[#e14d2a] hover:text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300;
+    }
+    
+    .card {
+        @apply bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl;
+    }
+    
+    .input-field {
+        @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e14d2a] focus:border-transparent transition-all duration-200;
+    }
+    
+    .section-title {
+        @apply text-4xl font-bold text-gray-800 mb-4;
+    }
+    
+    .section-subtitle {
+        @apply text-xl text-gray-600 mb-8;
+    }
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e14d2a;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #c43e1d;
+}

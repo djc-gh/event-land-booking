@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ land.name }} - Availability Calendar{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+  <!-- Breadcrumb Navigation -->
+  <div class="mb-6">
+    <a href="{% url 'search_availability' %}" class="text-gray-600 hover:text-gray-800">
+      ← Back to Search
+    </a>
+  </div>
+
+  <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+    <!-- Land Info Header -->
+    <div class="mb-8 border-b pb-6">
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">{{ land.name }}</h1>
+      <p class="text-gray-600 mb-4">{{ land.description }}</p>
+      <div class="flex flex-wrap gap-4 items-center">
+        <div class="text-lg font-semibold">
+          Price: <span class="text-[#e14d2a]">${{ land.price_per_night }}/night</span>
+        </div>
+        <div class="text-sm bg-gray-100 px-3 py-1 rounded">
+          {{ land.get_location_display }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Calendar Section -->
+    <div class="mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Availability Calendar</h2>
+        <div class="flex gap-2 items-center">
+          <!-- Previous Month Button -->
+          <a href="?year={{ prev_year }}&month={{ prev_month }}" 
+             class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded transition">
+            ← Previous
+          </a>
+          
+          <!-- Month/Year Display -->
+          <div class="px-4 py-2 font-semibold text-gray-800 min-w-40 text-center">
+            {{ month_name }} {{ current_year }}
+          </div>
+          
+          <!-- Next Month Button -->
+          <a href="?year={{ next_year }}&month={{ next_month }}" 
+             class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded transition">
+            Next →
+          </a>
+        </div>
+      </div>
+
+      <!-- Calendar Grid -->
+      <div class="bg-gray-50 rounded-lg p-4 overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="bg-[#e14d2a] text-white">
+              <th class="border p-3 text-sm font-semibold">Sun</th>
+              <th class="border p-3 text-sm font-semibold">Mon</th>
+              <th class="border p-3 text-sm font-semibold">Tue</th>
+              <th class="border p-3 text-sm font-semibold">Wed</th>
+              <th class="border p-3 text-sm font-semibold">Thu</th>
+              <th class="border p-3 text-sm font-semibold">Fri</th>
+              <th class="border p-3 text-sm font-semibold">Sat</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for week in enhanced_cal %}
+            <tr>
+              {% for day_info in week %}
+              <td class="border p-2 h-20 md:h-24 align-top {% if day_info.status == 'available' %}bg-green-50 hover:bg-green-100{% elif day_info.status == 'booked' %}bg-red-50{% elif day_info.status == 'past' %}bg-gray-100{% else %}bg-white{% endif %} cursor-pointer transition"
+                  onclick="selectDate({{ day_info.day }})">
+                {% if day_info.day != 0 %}
+                  <div class="text-sm font-semibold text-gray-800 mb-1">{{ day_info.day }}</div>
+                  
+                  <!-- Status Badge -->
+                  {% if day_info.status == 'available' %}
+                  <span class="inline-block bg-green-500 text-white text-xs px-2 py-1 rounded">
+                    Available
+                  </span>
+                  {% elif day_info.status == 'booked' %}
+                  <span class="inline-block bg-red-500 text-white text-xs px-2 py-1 rounded">
+                    Booked
+                  </span>
+                  {% elif day_info.status == 'past' %}
+                  <span class="inline-block bg-gray-400 text-white text-xs px-2 py-1 rounded">
+                    Past
+                  </span>
+                  {% endif %}
+                {% endif %}
+              </td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Legend -->
+      <div class="flex flex-wrap gap-6 mt-6 justify-center md:justify-start">
+        <div class="flex items-center gap-2">
+          <div class="w-4 h-4 bg-green-500 rounded"></div>
+          <span class="text-gray-700">Available</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-4 h-4 bg-red-500 rounded"></div>
+          <span class="text-gray-700">Booked</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-4 h-4 bg-gray-400 rounded"></div>
+          <span class="text-gray-700">Past</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking CTA -->
+    <div class="mt-8 pt-6 border-t">
+      <p class="text-gray-600 mb-4">
+        Ready to book this site? Select your dates on our booking page.
+      </p>
+      <a href="{% url 'search_availability' %}" 
+         class="inline-block bg-[#e14d2a] hover:bg-[#d13f1f] text-white font-semibold py-3 px-6 rounded transition">
+        Start a New Booking
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+function selectDate(day) {
+  // Simple feedback when clicking a date
+  console.log('Selected date: ' + day);
+  // Could be extended to allow date range selection
+}
+</script>
+{% endblock %}

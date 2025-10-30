@@ -1,0 +1,282 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us - RIVIÈRE RV PARK{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-gray-800 to-gray-900 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-5xl font-bold text-white mb-6">About RIVIÈRE RV PARK</h1>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+            Your premier riverfront RV camping destination
+        </p>
+    </div>
+</section>
+
+<!-- Our Story Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">Our Story</h2>
+                <div class="space-y-4 text-gray-600 text-lg">
+                    <p>
+                        Welcome to RIVIÈRE RV PARK, where adventure meets comfort on the beautiful riverfront. Our unique location features what's called a levee - a very large hill that provides stunning views and a distinctive entrance to our park.
+                    </p>
+                    <p>
+                        We understand that accessing our park requires following specific directions to safely navigate the levee with your RV or camper. This special approach ensures the safety and enjoyment of all our guests.
+                    </p>
+                    <p>
+                        Our park offers modern amenities including bathhouses with walk-in showers, a pavilion for events and rentals, full hookups, and on-site laundry facilities. Choose from three scenic location options: Riverfront sites with direct water access, Riverview sites with beautiful water vistas, or peaceful Pond sites.
+                    </p>
+                    <p>
+                        Whether you're launching your boat from our on-site ramp (with a larger public landing just 1 mile away), fishing in our well-stocked ponds, or relaxing by your campfire, RIVIÈRE RV PARK is your home away from home.
+                    </p>
+                </div>
+            </div>
+            <div class="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
+                <div class="absolute inset-0 bg-gradient-to-r from-[#e14d2a] to-[#c43e1d] opacity-20"></div>
+                <img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=800" 
+                     alt="RV Camping" 
+                     class="w-full h-full object-cover">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Amenities & Features -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="section-title">Our Amenities</h2>
+            <p class="section-subtitle">Everything you need for a comfortable stay</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Laundromat -->
+            <div class="card">
+                <div class="w-16 h-16 bg-[#e14d2a] rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Laundromat Building</h3>
+                <p class="text-gray-600">
+                    Our modern laundromat building is video monitored 24/7 for your safety, and features convenient parking for easy access.
+                </p>
+            </div>
+            
+            <!-- Bathhouse -->
+            <div class="card">
+                <div class="w-16 h-16 bg-[#e14d2a] rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Walk-In Bathhouse</h3>
+                <p class="text-gray-600">
+                    Our bathrooms are equipped with large walk-in showers and endless hot water for your comfort.
+                </p>
+            </div>
+            
+            <!-- Pavilion -->
+            <div class="card">
+                <div class="w-16 h-16 bg-[#e14d2a] rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Event Pavilion</h3>
+                <p class="text-gray-600">
+                    A pavilion available to rent for special events, and where we host community activities. Check our calendar for upcoming events!
+                </p>
+            </div>
+            
+            <!-- Boat Launch -->
+            <div class="card">
+                <div class="w-16 h-16 bg-[#e14d2a] rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Boat Launching</h3>
+                <p class="text-gray-600">
+                    Smaller boat launch on site with large public landing approximately 1 mile away for your boating convenience.
+                </p>
+            </div>
+            
+            <!-- Fishing Ponds -->
+            <div class="card">
+                <div class="w-16 h-16 bg-[#e14d2a] rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Fishing Ponds</h3>
+                <p class="text-gray-600">
+                    Our two fishing ponds are always kept well stocked and fishing is free to all campers. A fence is installed around the pond for child safety.
+                </p>
+            </div>
+            
+            <!-- Fire Pits & Tables -->
+            <div class="card">
+                <div class="w-16 h-16 bg-[#e14d2a] rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Fire Pits and Tables</h3>
+                <p class="text-gray-600">
+                    Each site has a fire pit, picnic table, and water hose so that you can enjoy the outdoors in comfort.
+                </p>
+            </div>
+            
+            <!-- Spacious Sites -->
+            <div class="card">
+                <div class="w-16 h-16 bg-[#e14d2a] rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Spacious RV Sites</h3>
+                <p class="text-gray-600">
+                    RV sites are spaced out through the park so that you won't feel cramped by your neighbor. Enjoy privacy and comfort.
+                </p>
+            </div>
+            
+            <!-- Shade Trees -->
+            <div class="card">
+                <div class="w-16 h-16 bg-[#e14d2a] rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Shade Trees</h3>
+                <p class="text-gray-600">
+                    The park is shaded by many beautiful trees providing a forest getaway atmosphere and natural cooling.
+                </p>
+            </div>
+            
+            <!-- Full Hookups -->
+            <div class="card">
+                <div class="w-16 h-16 bg-[#e14d2a] rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Full Hookups</h3>
+                <p class="text-gray-600">
+                    All sites feature full hookups including water, electric, and sewer connections for your convenience.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Site Locations -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="section-title">Choose Your Perfect Location</h2>
+            <p class="section-subtitle">Three unique site options to match your preferences</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="card text-center bg-gradient-to-br from-blue-50 to-blue-100">
+                <div class="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Riverfront Sites</h3>
+                <p class="text-gray-700">
+                    Premium sites with direct river access. Perfect for boat enthusiasts and those who want to wake up to waterfront views.
+                </p>
+            </div>
+            
+            <div class="card text-center bg-gradient-to-br from-green-50 to-green-100">
+                <div class="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Riverview Sites</h3>
+                <p class="text-gray-700">
+                    Elevated sites with beautiful river vistas. Enjoy stunning views while maintaining privacy and tranquility.
+                </p>
+            </div>
+            
+            <div class="card text-center bg-gradient-to-br from-teal-50 to-teal-100">
+                <div class="w-20 h-20 bg-teal-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Pond Sites</h3>
+                <p class="text-gray-700">
+                    Peaceful sites near our well-stocked fishing ponds. Ideal for families and fishing enthusiasts.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-20 bg-gradient-to-r from-[#e14d2a] to-[#c43e1d]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-8">
+            <h2 class="text-4xl font-bold text-white mb-4">Why Choose RIVIÈRE RV PARK?</h2>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="text-white">
+                <div class="text-5xl font-bold mb-2">Full</div>
+                <div class="text-xl opacity-90">Hookups</div>
+            </div>
+            <div class="text-white">
+                <div class="text-5xl font-bold mb-2">2</div>
+                <div class="text-xl opacity-90">Fishing Ponds</div>
+            </div>
+            <div class="text-white">
+                <div class="text-5xl font-bold mb-2">24/7</div>
+                <div class="text-xl opacity-90">Security</div>
+            </div>
+            <div class="text-white">
+                <div class="text-5xl font-bold mb-2">3</div>
+                <div class="text-xl opacity-90">Site Types</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mobile Home Rental Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="card bg-gradient-to-r from-gray-50 to-gray-100">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Mobile Home Rental</h2>
+                <p class="text-xl text-gray-600">Coming Soon!</p>
+            </div>
+            <div class="max-w-3xl mx-auto">
+                <p class="text-lg text-gray-700 mb-4">
+                    We will have a <strong>14 x 60 ft, 3 bedroom, 2 bath mobile home</strong> available on-site for weekend or weekly rental only.
+                </p>
+                <p class="text-gray-600">
+                    Perfect for extended stays or family gatherings. Contact us for more information about availability and rates.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-4xl font-bold text-gray-800 mb-6">Ready to Experience RIVIÈRE RV PARK?</h2>
+        <p class="text-xl text-gray-600 mb-8">Book your riverfront RV site today and discover the perfect blend of nature and comfort</p>
+        <a href="{% url 'search_availability' %}" class="btn-primary text-lg">
+            Check Availability & Book Now
+        </a>
+    </div>
+</section>
+{% endblock %}

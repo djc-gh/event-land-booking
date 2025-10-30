@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+
+{% block title %}Booking Confirmation - RIVIÈRE RV PARK{% endblock %}
+
+{% block extra_css %}
+<style>
+    @media print {
+        /* Hide everything except the receipt */
+        body * {
+            visibility: hidden;
+        }
+        
+        /* Show only the receipt content */
+        #print-receipt, #print-receipt * {
+            visibility: visible;
+        }
+        
+        /* Position receipt at top of page */
+        #print-receipt {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        /* Hide buttons and action elements */
+        .no-print {
+            display: none !important;
+        }
+        
+        /* Adjust colors for print */
+        #print-receipt {
+            background: white !important;
+            box-shadow: none !important;
+        }
+        
+        /* Optimize text for print */
+        body {
+            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Success Section -->
+<section class="py-20 bg-gradient-to-r from-green-50 to-green-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 md:p-12">
+            <!-- Success Icon -->
+            <div class="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6 no-print">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            
+            <h1 class="text-4xl font-bold text-gray-800 mb-4 no-print">Booking Request Submitted!</h1>
+            <p class="text-xl text-gray-600 mb-8 no-print">
+                Thank you for choosing RIVIÈRE RV PARK. Your booking request has been received.
+            </p>
+            
+            <!-- Booking Details - This is what will print -->
+            <div id="print-receipt" class="bg-gray-50 rounded-xl p-6 mb-8 text-left">
+                <div class="text-center mb-6">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">RIVIÈRE RV PARK</h2>
+                    <p class="text-lg font-semibold text-[#e14d2a] mb-4">Booking Confirmation Receipt</p>
+                    <p class="text-sm text-gray-600">High way 457 PASS Dewitt Rd.</p>
+                    <p class="text-sm text-gray-600">(318) 447-7530 | rivier.rouge@example.com</p>
+                </div>
+                
+                <div class="border-t-2 border-gray-300 my-4"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-sm text-gray-600 font-semibold">Booking ID</p>
+                        <p class="text-lg font-bold text-[#e14d2a]">#{{ booking.id }}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 font-semibold">Status</p>
+                        <p class="text-lg font-bold text-yellow-600">{{ booking.get_status_display }}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 font-semibold">Guest Name</p>
+                        <p class="text-lg text-gray-800">{{ booking.guest_name }}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 font-semibold">Email</p>
+                        <p class="text-lg text-gray-800">{{ booking.guest_email }}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 font-semibold">Phone</p>
+                        <p class="text-lg text-gray-800">{{ booking.guest_phone }}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 font-semibold">Number of Guests</p>
+                        <p class="text-lg text-gray-800">{{ booking.number_of_guests }} people</p>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-200 mt-6 pt-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-sm text-gray-600 font-semibold">Camping Plot</p>
+                            <p class="text-lg font-bold text-gray-800">{{ booking.land.name }}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600 font-semibold">Total Nights</p>
+                            <p class="text-lg text-gray-800">{{ booking.total_nights }} night{{ booking.total_nights|pluralize }}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600 font-semibold">Check-in</p>
+                            <p class="text-lg text-gray-800">{{ booking.check_in|date:"F d, Y" }}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600 font-semibold">Check-out</p>
+                            <p class="text-lg text-gray-800">{{ booking.check_out|date:"F d, Y" }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-200 mt-6 pt-6">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-semibold text-gray-800">Total Amount:</span>
+                        <span class="text-3xl font-bold text-[#e14d2a]">${{ booking.total_price }}</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">
+                        (${{ booking.price_per_night }} × {{ booking.total_nights }} night{{ booking.total_nights|pluralize }})
+                    </p>
+                </div>
+                
+                {% if booking.special_requests %}
+                <div class="border-t border-gray-200 mt-6 pt-6">
+                    <p class="text-sm text-gray-600 font-semibold mb-2">Special Requests:</p>
+                    <p class="text-gray-800">{{ booking.special_requests }}</p>
+                </div>
+                {% endif %}
+                
+                <div class="border-t-2 border-gray-300 my-6"></div>
+                
+                <div class="text-center text-sm text-gray-600">
+                    <p class="mb-2">Thank you for choosing RIVIÈRE RV PARK!</p>
+                    <p>This is a booking confirmation. Please keep for your records.</p>
+                    <p class="mt-4 text-xs">Date Printed: {{ booking.created_at|date:"F d, Y" }}</p>
+                </div>
+            </div>
+            
+            <!-- Next Steps -->
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8 text-left no-print">
+                <h3 class="text-lg font-bold text-blue-800 mb-3">What's Next?</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        <span>You will receive a confirmation email at <strong>{{ booking.guest_email }}</strong> within 24 hours.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        <span>Our team will review your booking and contact you to confirm availability.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        <span>Payment instructions will be provided upon confirmation.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        <span>Please save your Booking ID: <strong>#{{ booking.id }}</strong> for future reference.</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Contact Info -->
+            <div class="bg-gray-100 rounded-lg p-6 mb-8 text-left no-print">
+                <h3 class="text-lg font-bold text-gray-800 mb-3">Need Help?</h3>
+                <p class="text-gray-600 mb-2">If you have any questions about your booking, please contact us:</p>
+                <div class="space-y-1 text-gray-700">
+                    <p><strong>Email:</strong> rivier.rouge@example.com</p>
+                    <p><strong>Phone:</strong> (318) 447-7530</p>
+                    <p class="text-sm text-gray-600 mt-2">Include your Booking ID (#{{ booking.id }}) when contacting us.</p>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center no-print">
+                <a href="{% url 'home' %}" class="btn-primary">
+                    Return to Home
+                </a>
+                <a href="{% url 'search_availability' %}" class="btn-outline">
+                    Book Another Plot
+                </a>
+            </div>
+            
+            <!-- Print Button -->
+            <button onclick="window.print()" class="mt-4 text-gray-600 hover:text-[#e14d2a] font-semibold no-print">
+                <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                </svg>
+                Print Confirmation
+            </button>
+        </div>
+    </div>
+</section>
+{% endblock %}

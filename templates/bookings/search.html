@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Available Plots - RIVIÈRE RV PARK{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-r from-gray-800 to-gray-900 py-20">
+    <div class="absolute inset-0" style="background: url('{{ MEDIA_URL }}banner-mini.png') center/cover;"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl font-bold text-white mb-4">Find Your Perfect Camping Spot</h1>
+        <p class="text-xl text-gray-300">Select your dates and discover available plots</p>
+    </div>
+</section>
+
+<!-- Search Form -->
+<section class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="card max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Select Your Dates</h2>
+            <form method="GET" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Check-in Date *</label>
+                    <input type="date" 
+                           name="check_in" 
+                           required 
+                           class="input-field"
+                           value="{{ check_in|date:'Y-m-d' }}"
+                           min="{{ today|date:'Y-m-d' }}">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Check-out Date *</label>
+                    <input type="date" 
+                           name="check_out" 
+                           required 
+                           class="input-field"
+                           value="{{ check_out|date:'Y-m-d' }}">
+                </div>
+                <div class="flex items-end">
+                    <button type="submit" class="btn-primary w-full">
+                        Search Availability
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Search Results -->
+{% if check_in and check_out %}
+<section class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">Search Results</h2>
+            <p class="text-gray-600">
+                From {{ check_in|date:"F d, Y" }} to {{ check_out|date:"F d, Y" }} 
+                ({{ total_nights }} night{{ total_nights|pluralize }})
+            </p>
+        </div>
+        
+        <!-- Available Plots Section -->
+        {% if available_lands %}
+        <div class="mb-12">
+            <h3 class="text-2xl font-bold text-green-600 mb-6 flex items-center">
+                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                Available RV Sites
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for land in available_lands %}
+                <div class="card hover:scale-105">
+                    {% if land.image %}
+                    <div class="h-48 overflow-hidden rounded-lg mb-4">
+                        <img src="{{ land.image.url }}" 
+                             alt="{{ land.name }}" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    {% else %}
+                    <div class="h-48 bg-gradient-to-br from-green-400 to-green-600 rounded-lg mb-4 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                    </div>
+                    {% endif %}
+                    
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">{{ land.name }}</h3>
+                    <p class="text-gray-600 mb-4">{{ land.description|truncatewords:20 }}</p>
+                    
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center text-gray-700">
+                            <svg class="w-5 h-5 text-[#e14d2a] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            <span>Capacity: {{ land.capacity }} people</span>
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <svg class="w-5 h-5 text-[#e14d2a] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+                            </svg>
+                            <span>Size: {{ land.size }} m²</span>
+                        </div>
+                    </div>
+                    
+                    {% if land.amenities %}
+                    <div class="mb-4">
+                        <p class="text-sm text-gray-600 font-semibold mb-1">Amenities:</p>
+                        <p class="text-sm text-gray-600">{{ land.amenities|truncatewords:10 }}</p>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Price Display -->
+                    <div class="bg-gray-100 rounded-lg p-3 mb-4">
+                        <p class="text-sm text-gray-600 mb-1">Price per night:</p>
+                        <p class="text-2xl font-bold text-[#e14d2a]">${{ land.price_per_night }}</p>
+                        {% if total_nights %}
+                        <p class="text-sm text-gray-600 mt-1">Total: <span class="font-bold text-gray-800">${{ land.price_per_night|floatformat:2 }}</span> × {{ total_nights }} nights</p>
+                        {% endif %}
+                    </div>
+                    
+                    <a href="{% url 'booking_form' land.id %}?check_in={{ check_in|date:'Y-m-d' }}&check_out={{ check_out|date:'Y-m-d' }}" 
+                       class="btn-primary block text-center">
+                        Book This Plot
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Booked Plots Section -->
+        {% if booked_lands %}
+        <div>
+            <h3 class="text-2xl font-bold text-red-600 mb-6 flex items-center">
+                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M13.477 14.89A6 6 0 105.5 13m4.5 5.5l4.75-4.75m0 0l4.75 4.75" clip-rule="evenodd"/>
+                </svg>
+                Booked RV Sites
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for land in booked_lands %}
+                <div class="card hover:scale-105 opacity-75">
+                    {% if land.image %}
+                    <div class="h-48 overflow-hidden rounded-lg mb-4">
+                        <img src="{{ land.image.url }}" 
+                             alt="{{ land.name }}" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    {% else %}
+                    <div class="h-48 bg-gradient-to-br from-gray-300 to-gray-400 rounded-lg mb-4 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                    </div>
+                    {% endif %}
+                    
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">{{ land.name }}</h3>
+                    <p class="text-gray-600 mb-4">{{ land.description|truncatewords:20 }}</p>
+                    
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center text-gray-700">
+                            <svg class="w-5 h-5 text-[#e14d2a] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            <span>Capacity: {{ land.capacity }} people</span>
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <svg class="w-5 h-5 text-[#e14d2a] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+                            </svg>
+                            <span>Size: {{ land.size }} m²</span>
+                        </div>
+                    </div>
+                    
+                    {% if land.amenities %}
+                    <div class="mb-4">
+                        <p class="text-sm text-gray-600 font-semibold mb-1">Amenities:</p>
+                        <p class="text-sm text-gray-600">{{ land.amenities|truncatewords:10 }}</p>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Price Display -->
+                    <div class="bg-gray-100 rounded-lg p-3 mb-4">
+                        <p class="text-sm text-gray-600 mb-1">Price per night:</p>
+                        <p class="text-2xl font-bold text-[#e14d2a]">${{ land.price_per_night }}</p>
+                        {% if total_nights %}
+                        <p class="text-sm text-gray-600 mt-1">Total: <span class="font-bold text-gray-800">${{ land.price_per_night|floatformat:2 }}</span> × {{ total_nights }} nights</p>
+                        {% endif %}
+                    </div>
+                    
+                    <a href="{% url 'land_availability_calendar' land.id %}" 
+                       class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded transition block text-center">
+                        Check Availability
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- No Results -->
+        {% if not available_lands and not booked_lands %}
+        <div class="text-center py-12">
+            <svg class="w-24 h-24 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M12 12h.01M12 12h.01M12 12h.01M12 12h.01M12 21a9 9 0 100-18 9 9 0 000 18z"></path>
+            </svg>
+            <h3 class="text-2xl font-semibold text-gray-700 mb-2">No plots available</h3>
+            <p class="text-gray-600">Try selecting different dates to see available options</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Set minimum date for check-in to today
+    const today = new Date().toISOString().split('T')[0];
+    const checkInInput = document.querySelector('input[name="check_in"]');
+    const checkOutInput = document.querySelector('input[name="check_out"]');
+    
+    checkInInput.setAttribute('min', today);
+    
+    // Update check-out minimum when check-in changes
+    checkInInput.addEventListener('change', function() {
+        const checkIn = new Date(this.value);
+        checkIn.setDate(checkIn.getDate() + 1);
+        const minCheckOut = checkIn.toISOString().split('T')[0];
+        checkOutInput.setAttribute('min', minCheckOut);
+        
+        // If check-out is before new minimum, update it
+        if (checkOutInput.value && checkOutInput.value <= this.value) {
+            checkOutInput.value = minCheckOut;
+        }
+    });
+</script>
+{% endblock %}
