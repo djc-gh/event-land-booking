@@ -74,6 +74,32 @@ This guide explains how to deploy the CampLand camping booking system to Render.
 
 ## Troubleshooting
 
+### Common Issues
+
+1. **"ModuleNotFoundError: No module named 'app'"**
+   - This means Render is using `gunicorn app:app` instead of our configured command
+   - Solutions:
+     - Ensure the `render.yaml` file is in the root directory
+     - Check that the `startCommand` in render.yaml is: `gunicorn campland.wsgi:application`
+     - Verify the Procfile contains: `web: gunicorn campland.wsgi:application`
+     - Try manually setting the start command in Render dashboard under "Settings" → "Build & Deploy"
+
+2. **Database Connection Issues**
+   - Ensure the DATABASE_URL environment variable is set by the PostgreSQL service
+   - Check that migrations completed successfully in the build logs
+
+3. **Static Files Not Loading**
+   - Verify that `npm run build:css` completed successfully
+   - Check that `collectstatic` ran without errors
+   - Ensure WhiteNoise is properly configured in settings.py
+
+### Manual Override
+If the YAML configuration is being ignored, you can manually override in the Render dashboard:
+1. Go to your service settings
+2. Under "Build & Deploy", set:
+   - Build Command: `pip install -r requirements.txt && npm install && npm run build:css && python manage.py collectstatic --noinput && python manage.py migrate`
+   - Start Command: `gunicorn campland.wsgi:application`
+
 - Check the build logs in the Render dashboard
 - Ensure all environment variables are properly set
 - Verify that the database is connected and migrations completed

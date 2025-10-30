@@ -1,1 +1,1 @@
-web: gunicorn campland.wsgi:application
+web: ./start_server.sh
