@@ -9,6 +9,7 @@ services:
     runtime: python
     plan: free
     region: oregon
+    rootDir: .
     buildCommand: |
       # Install Python dependencies
       pip install -r requirements.txt
@@ -19,10 +20,10 @@ services:
       python manage.py collectstatic --noinput
       # Run database migrations
       python manage.py migrate
-    startCommand: gunicorn campland.wsgi:application
+    startCommand: "gunicorn campland.wsgi:application --bind 0.0.0.0:$PORT"
     envVars:
       - key: PYTHON_VERSION
-        value: "3.11.0"
+        value: "3.11"
       - key: NODE_VERSION
         value: "18"
       - key: DEBUG
