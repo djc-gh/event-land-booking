@@ -1,31 +1,17 @@
 databases:
   - name: campland-db
     plan: free
-    region: oregon
 
 services:
   - type: web
     name: campland-web
     runtime: python
     plan: free
-    region: oregon
-    rootDir: .
-    buildCommand: |
-      # Install Python dependencies
-      pip install -r requirements.txt
-      # Install Node.js dependencies and build CSS
-      npm install
-      npm run build:css
-      # Collect static files
-      python manage.py collectstatic --noinput
-      # Run database migrations
-      python manage.py migrate
-    startCommand: "gunicorn campland.wsgi:application --bind 0.0.0.0:$PORT"
+    buildCommand: pip install -r requirements.txt && npm install && npm run build:css && python manage.py collectstatic --noinput && python manage.py migrate
+    startCommand: gunicorn campland.wsgi:application
     envVars:
       - key: PYTHON_VERSION
         value: "3.11"
-      - key: NODE_VERSION
-        value: "18"
       - key: DEBUG
         value: "false"
       - key: DJANGO_SETTINGS_MODULE
@@ -37,4 +23,4 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: ALLOWED_HOSTS
-        value: "campland-web.onrender.com,.onrender.com"
+        value: campland-web.onrender.com,.onrender.com

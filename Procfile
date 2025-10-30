@@ -1,1 +1,1 @@
-web: gunicorn campland.wsgi:application --host 0.0.0.0 --port $PORT
+web: gunicorn campland.wsgi:application
