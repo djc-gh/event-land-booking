@@ -36,7 +36,8 @@ db.sqlite3-journal
 
 # Tailwind
 node_modules/
-/static/css/output.css
+# Allow output.css to be committed for deployment
+# /static/css/output.css
 
 # IDE
 .vscode/
