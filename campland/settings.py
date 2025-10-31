@@ -31,15 +31,14 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 # Allow Render.com domains and localhost
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=lambda v: [s.strip() for s in v.split(',')])
 
-# Add wildcard for .onrender.com domains in production
-if not DEBUG:
-    ALLOWED_HOSTS.extend(['.onrender.com'])
-else:
-    # In development, also allow local variations
-    if 'localhost' not in ALLOWED_HOSTS:
-        ALLOWED_HOSTS.append('localhost')
-    if '127.0.0.1' not in ALLOWED_HOSTS:
-        ALLOWED_HOSTS.append('127.0.0.1')
+# Always add .onrender.com wildcard and explicit domain
+ALLOWED_HOSTS.extend(['.onrender.com', 'event-land-booking.onrender.com'])
+
+# Ensure localhost is available for development
+if DEBUG and 'localhost' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append('localhost')
+if DEBUG and '127.0.0.1' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append('127.0.0.1')
 
 
 # Application definition
